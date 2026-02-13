@@ -1,6 +1,37 @@
-# Australian Credit Approval Classification
+# Credit Classification Model: Comparative Analysis of Supervised Learning Algorithms
 
-This project analyzes the Statlog (Australian Credit Approval) dataset to build and evaluate statistical and machine learning models for predicting credit approval decisions. The study focuses on data cleaning, exploratory analysis, and classification modeling to support data-driven credit risk assessment.
+**Author**: Vishal Tyagi
+
+## About & Summary
+
+This project implements a **complete machine learning pipeline** for predicting credit approval decisions using the Statlog Australian Credit Dataset. The analysis encompasses exploratory data analysis, advanced feature engineering, training of 5 different classifiers, rigorous cross-validation, and comprehensive model evaluation.
+
+### Project Objectives
+1. **Exploratory Analysis** — Understand credit approval patterns, feature distributions, and predictive signals
+2. **Feature Engineering** — Handle outliers, transform skewed features, create meaningful interactions
+3. **Model Development** — Train and compare baseline and advanced machine learning algorithms
+4. **Performance Optimization** — Use hyperparameter tuning and cross-validation for robust model selection
+5. **Interpretability** — Extract feature importance and error analysis for business insights
+
+### Key Results
+- ✅ **Best Model**: Random Forest with F1-score of **0.8483** and ROC-AUC of **0.9269**
+- ✅ **Cross-Validation Stability**: 0.8610 ± 0.0240 (low variance = robust model)
+- ✅ **Feature Engineering**: 7 engineered features + 33 total features after encoding
+- ✅ **5 Models Trained**: Logistic Regression, Naive Bayes, Decision Tree, Random Forest, SVM
+- ✅ **Business Impact**: 87% correct approval decisions with 13% false positive risk and 19% false negative risk
+
+### Use Case
+This model supports automated credit approval decisions by predicting whether applicants will be approved or denied based on 14 financial and demographic attributes. It helps financial institutions balance approval acceptance with default risk, enabling scalable and data-driven credit assessment.
+
+### Key Deliverables
+- Complete preprocessed datasets (train/test splits, encoded features, scaled features)
+- Performance metrics and model comparison table
+- Feature importance rankings (tree-based and permutation-based)
+- Confusion matrix and ROC curves for all models
+- Error analysis with business cost implications
+- Production-ready best model with deployment recommendations
+
+---
 
 ## Dataset Overview
 
