@@ -1,99 +1,160 @@
-# Credit Classification Model: Comparative Analysis of Supervised Learning Algorithms
+# Credit Approval Classification
 
-**Author**: Vishal Tyagi
+## Project Type
+**Individual Final Project**
 
-## About & Summary
-
-This project implements a **complete machine learning pipeline** for predicting credit approval decisions using the Statlog Australian Credit Dataset. The analysis encompasses exploratory data analysis, advanced feature engineering, training of 5 different classifiers, rigorous cross-validation, and comprehensive model evaluation.
-
-### Project Objectives
-1. **Exploratory Analysis** — Understand credit approval patterns, feature distributions, and predictive signals
-2. **Feature Engineering** — Handle outliers, transform skewed features, create meaningful interactions
-3. **Model Development** — Train and compare baseline and advanced machine learning algorithms
-4. **Performance Optimization** — Use hyperparameter tuning and cross-validation for robust model selection
-5. **Interpretability** — Extract feature importance and error analysis for business insights
-
-### Key Results
-- ✅ **Best Model**: Random Forest with F1-score of **0.8483** and ROC-AUC of **0.9269**
-- ✅ **Cross-Validation Stability**: 0.8610 ± 0.0240 (low variance = robust model)
-- ✅ **Feature Engineering**: 7 engineered features + 33 total features after encoding
-- ✅ **5 Models Trained**: Logistic Regression, Naive Bayes, Decision Tree, Random Forest, SVM
-- ✅ **Business Impact**: 87% correct approval decisions with 13% false positive risk and 19% false negative risk
-
-### Use Case
-This model supports automated credit approval decisions by predicting whether applicants will be approved or denied based on 14 financial and demographic attributes. It helps financial institutions balance approval acceptance with default risk, enabling scalable and data-driven credit assessment.
-
-### Key Deliverables
-- Complete preprocessed datasets (train/test splits, encoded features, scaled features)
-- Performance metrics and model comparison table
-- Feature importance rankings (tree-based and permutation-based)
-- Confusion matrix and ROC curves for all models
-- Error analysis with business cost implications
-- Production-ready best model with deployment recommendations
+## Author
+**Vishal Tyagi**
 
 ---
 
-## Dataset Overview
+## 1. Project Overview
 
-### Source
-- **Name**: Statlog (Australian Credit Approval)
-- **Repository**: UCI Machine Learning Repository
-- **Samples**: 690 credit applications
-- **Features**: 14 predictors (6 numerical + 8 categorical) + 1 binary target
-- **Target Variable (A15)**: 1 = Approved (+), 2 = Denied (−)
-- **Missing Values**: None detected
-- **Class Distribution**: 44% Approved, 56% Denied (modest imbalance)
+This project focuses on developing and evaluating supervised machine learning models to predict **credit approval decisions** based on applicant financial and demographic information.  
+The goal is to compare multiple classification algorithms and identify a model that balances **predictive performance**, **interpretability**, and **business relevance** in a credit risk assessment context.
 
-### Feature Summary
+Credit approval is a high-stakes decision-making problem where incorrect approvals can lead to financial loss, while incorrect rejections may result in lost business opportunities. This project emphasizes both statistical rigor and practical applicability.
 
-#### Numerical Features (6)
-| Feature | Code | Range | Mean | Description |
-|---------|------|-------|------|-------------|
-| A2 | Continuous | 13.75–80.25 | 31.6 | Age or similar metric |
-| A3 | Continuous | 0–28 | 4.76 | Financial metric (right-skewed) |
-| A7 | Continuous | 0–28.5 | 2.22 | Debt/loan amount (heavy tail) |
-| A10 | Continuous | 0–67 | 2.4 | Months/tenure (sparse, zero-heavy) |
-| A13 | Continuous | 0–2000 | 184 | Credit limit or balance |
-| A14 | Continuous | 1–100001 | 1018 | Monthly payment/income (extreme outliers) |
+---
 
-#### Categorical Features (8)
-| Feature | Code | Type | Cardinality | Description |
-|---------|------|------|-------------|-------------|
-| A1 | Binary | Nominal | 2 | Account status (a/b) |
-| A4 | Ordinal | 1–3 | 3 | Credit history (p/g/gg) |
-| A5 | Nominal | 1–14 | 14 | Purpose of credit |
-| A6 | Nominal | 1–9 | 9 | Occupation |
-| A8 | Binary | Nominal | 2 | Telephone listed (t/f) |
-| A9 | Binary | Nominal | 2 | Foreign worker (t/f) |
-| A11 | Binary | Nominal | 2 | Prior default history (t/f) |
-| A12 | Ordinal | 1–3 | 3 | Employment status (s/g/p) |
+## 2. Dataset Description
 
-### Data Quality
-- **Missing Values**: 0 (100% complete)
-- **Duplicates**: Not checked; assume unique records
-- **Outliers**: A14 has extreme value (100,001); A7, A3 show right-skewed distributions
-- **Preprocessing Applied**: Categorical one-hot encoding, stratified train/test split (80/20)
+- **Dataset Name:** Statlog (Australian Credit Approval Dataset)
+- **Source:** UCI Machine Learning Repository
+- **Observations:** 690 records
+- **Features:** 14 input attributes (mix of numerical and categorical)
+- **Target Variable:** Binary class indicating credit approval (approved / not approved)
 
-### Target Variable Analysis
-- **Approved (1)**: 307 records (44.5%)
-- **Denied (2)**: 383 records (55.5%)
-- **Imbalance Ratio**: 1:1.24 (moderate); use stratified CV and class-weighted models
+The dataset contains anonymized applicant information, including financial indicators and personal attributes. Several features contain missing values and require preprocessing before modeling.
 
-### Top Predictive Features
-Ranked by absolute correlation with approval decision (A15):
+---
 
-1. **A8** (r = 0.720) — Telephone listed; strongest predictor
-2. **A9** (r = 0.458) — Foreign worker status
-3. **A10** (r = 0.406) — Months/tenure in account
-4. **A5** (r = 0.374) — Purpose of credit
-5. **A7** (r = 0.322) — Debt/loan metric
+## 3. Data Cleaning and Preparation
 
-**Weak Predictors** (|r| < 0.15):
-- A1, A11, A13, A14, A2, A12
+The following preprocessing steps were applied:
 
-### Data Files Generated
+- Handling missing values using statistically appropriate imputation techniques
+- Encoding categorical variables for compatibility with machine learning models
+- Feature scaling for models sensitive to magnitude (e.g., Logistic Regression, SVM)
+- Splitting the dataset into training and testing subsets to evaluate generalization performance
 
-#### Processed Data
-- **`outputs/train.csv`** — Training set (552 rows, 80%) with one-hot encoded features
-- **`outputs/test.csv`** — Test set (138 rows, 20%) with one-hot encoded features
-- **`outputs/data_encoded.csv`** — Full dataset with categorical features encoded (690 rows)
+These steps ensured data consistency and improved model stability.
+
+---
+
+## 4. Exploratory Data Analysis (EDA)
+
+Exploratory analysis was conducted to:
+
+- Examine the distribution of the target variable
+- Identify relationships between predictors and credit approval outcomes
+- Detect correlations and potential multicollinearity
+- Understand class balance and feature behavior
+
+Insights from EDA informed feature selection and model choice.
+
+---
+
+## 5. Models Implemented
+
+The following supervised learning models were trained and evaluated:
+
+- **Logistic Regression**
+- **Support Vector Machine (SVM)**
+- **Random Forest Classifier**
+
+Each model was selected to provide a balance between interpretability and predictive power, allowing meaningful comparison across linear and non-linear approaches.
+
+---
+
+## 6. Model Evaluation
+
+Models were evaluated using multiple performance metrics:
+
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- ROC-AUC
+
+Given the business context of credit approval, special attention was paid to **false positives** (approving high-risk applicants) and **false negatives** (rejecting creditworthy applicants). This ensured the evaluation aligned with real-world risk considerations.
+
+---
+
+## 7. Key Findings
+
+- Ensemble-based models demonstrated strong predictive performance.
+- Logistic Regression provided greater interpretability and transparency.
+- Certain financial attributes showed consistent importance across models.
+- Trade-offs between accuracy and interpretability were observed and discussed.
+
+---
+
+## 8. Project Structure
+
+```text
+credit-approval-classification/
+│
+├── data/
+│   ├── raw/
+│   │   └── australian.dat
+│   └── processed/
+│       └── credit_approval_clean.csv
+│
+├── notebooks/
+│   └── Credit_approval_model.ipynb
+│
+├── outputs/
+│   ├── figures/
+│   └── metrics/
+│
+├── README.md
+├── requirements.txt
+└── .gitignore
+```
+
+## 9. Technologies Used
+
+- Python
+
+- Pandas, NumPy
+
+- Scikit-learn
+
+- Matplotlib, Seaborn
+
+- Jupyter Notebook
+
+- Git and GitHub
+
+## 10. How to Run the Project
+ - 1. Clone the repository:
+
+ git clone https://github.com/vtyagi490/credit-approval-classification.git
+
+ - 2. Navigate to the project directory:
+
+ cd credit-approval-classification
+
+ - 3. Install dependencies:
+
+ pip install -r requirements.txt
+
+ - 4. Launch Jupyter Notebook and run all cells:
+
+ jupyter notebook
+
+
+## 11. Limitations and Future Work
+
+- The dataset is relatively small and anonymized, limiting feature interpretability.
+
+- Additional hyperparameter tuning could further improve performance.
+
+- Future work may include cost-sensitive learning or threshold optimization.
+
+- Model explainability techniques such as SHAP could enhance interpretability.
+
+## 12.Conclusion
+
+This project demonstrates an end-to-end machine learning workflow for a real-world credit approval problem. Through careful data preparation, exploratory analysis, and comparative modeling, the project highlights the strengths and limitations of different supervised learning approaches in financial decision-making contexts.
