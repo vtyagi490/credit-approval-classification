@@ -237,7 +237,7 @@ pip install -r requirements.txt
 ```bash
 # Open Jupyter notebook
 jupyter notebook notebooks/Credit_approval_model.ipynb
-
+```
 ---
 
 ## 📁 Key Files & Outputs
